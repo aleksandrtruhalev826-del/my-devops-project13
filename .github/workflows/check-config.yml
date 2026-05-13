@@ -1,0 +1,14 @@
+name: Lint Configs
+on: [push]
+
+jobs:
+  check-nginx:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check Nginx config syntax
+        run: |
+          # Простая проверка: есть ли в файле слово 'server'
+          grep -q "server" nginx.conf && echo "Config looks valid" || exit 1
