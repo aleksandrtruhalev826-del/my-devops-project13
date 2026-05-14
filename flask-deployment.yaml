@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-flask-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-web
+  template:
+    metadata:
+      labels:
+        app: flask-web
+    spec:
+      containers:
+      - name: flask-container
+        image: docker.io/library/my-flask-app:v1
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5000
+        env:
+        - name: USER_NAME
+          value: "Aleksandr"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-flask-service
+spec:
+  type: NodePort
+  selector:
+    app: flask-web
+  ports:
+  - port: 5000
+    targetPort: 5000
+    nodePort: 32500

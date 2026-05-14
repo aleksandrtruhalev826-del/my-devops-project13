@@ -2,3 +2,5 @@ node_modules/
 .env
 dist/
 *.log
+xray.zip
+install-release.sh
